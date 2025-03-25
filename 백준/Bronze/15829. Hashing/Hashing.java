@@ -22,14 +22,25 @@ public class Main {
 	public static int hashFunction(int L, String input) {
 
 		long sum = 0;
-		long r = 31;
-		long mod = 1234567891;
+		int r = 31;
+		int mod = 1234567891;
 
 		for (int i = 0; i < L; i++) {
 			int charValue = input.charAt(i) - 'a' + 1;
-			sum += (charValue * Math.pow(r, i)) % mod;
+			long term = (charValue * powMod(r, i, mod)) % mod;
+			sum = (sum + term) % mod;
 		}
 
 		return (int) sum;
+	}
+
+	public static long powMod(int r, int range, int mod) {
+		long result = 1;
+
+		for (int i = 0; i < range; i++) {
+			result = (result * r) % mod;
+		}
+
+		return result;
 	}
 }
